@@ -1,0 +1,59 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.2'
+        
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+plugins {
+    id "calces.appconfig" version "1.0.11"
+}
+
+//calces组件化配置
+appConfig{
+    //debug测试模式->开发阶段为true->各个子模块单独运行测试
+    debugEnable true
+    //组件化架构中，第三层不同业务路基组件
+    apps{
+        app{
+            modules ':news',':user'
+        }
+    }
+    modules{
+        //新闻资讯
+        news {
+            name ':news'
+            mainActivity ".MainActivity"
+            applicationId "com.bwie.news"
+            isRunAlone false
+            //是否可以单独运行
+        }
+        //用户
+        user {
+            name ':user'
+            mainActivity ".MainActivity"
+            applicationId "com.bwie.user"
+            isRunAlone false
+            //是否可以单独运行
+        }
+    }
+}
+allprojects {
+    repositories {
+        google()
+        jcenter()
+
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
